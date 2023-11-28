@@ -1,0 +1,54 @@
+.backTo{
+    color: red;
+}
+.contenitore-hostVanDetail{
+    background-color: white;
+    margin: 20px;
+    padding: 20px;
+}
+.hostVanDetail {
+    display: flex;
+    margin: 20px 0px;
+}
+
+.hostVanDetail img {
+    width: 40%;
+    margin-right: 20px ;
+    object-fit: contain;
+}
+.contenitore-hostVanDetail .hostVanDetail .info{
+    height: fit-content;
+    display: block;
+    text-align: center;
+    flex-grow: 1;
+    text-align: left;
+}
+
+.contenitore-hostVanDetail .hostVanDetail .info #categoria,
+.contenitore-hostVanDetail .hostVanDetail .info #modello ,
+.contenitore-hostVanDetail .hostVanDetail .info #prezzo{ 
+    
+margin: 0;
+}
+.contenitore-hostVanDetail .hostVanDetail .info #categoria{
+    border: unset;
+    border-radius: 5px;
+    padding: 5px;
+    width: fit-content;
+    margin-bottom: 10px;
+}
+.contenitore-hostVanDetail .hostVanDetail .info #modello{
+    font-size: 25px;
+}
+.contenitore-hostVanDetail .hostVanDetail .info #prezzo{
+    font-size: 20px;
+}
+
+.contenitore-hostVanDetail .hostVanDetail .info #prezzo > span{
+    font-size: 15px;
+}
+
+.contenitore-hostVanDetail .header{
+    display: block;
+    background-color: white;
+}

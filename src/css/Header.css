@@ -1,0 +1,20 @@
+.header{
+    display: flex;
+    background-color: #f6f6e1;
+    justify-content: space-between;
+    padding-left: 40px;
+    padding-right: 10px;
+}
+
+.links a{
+    display: inline-block;/*e' inline ma padding e margin sono valutati!*/
+    padding-right: 21px;
+    padding-top: 30px;
+    text-decoration: none;
+    color: black;
+}
+
+
+body{
+    background-color: #f6f6e1;
+}

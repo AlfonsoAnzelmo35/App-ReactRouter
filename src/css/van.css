@@ -1,0 +1,23 @@
+.van{
+    width: 80%;
+    height: 70%;
+    background-color: white;   
+    border: unset;
+    border-radius: 10px;
+}
+.van .vanLink{
+    text-decoration: none;
+    color: black;
+}
+.van img{
+    border: unset;
+    border-radius: 7%;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+.info{
+    display: flex;
+}
+
+

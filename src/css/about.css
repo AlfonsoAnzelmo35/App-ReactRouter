@@ -1,0 +1,45 @@
+
+.contenitoreAbout{
+
+    padding: 0 20px;
+    text-align: left;
+    background-color: #f6f6e1;
+}
+.about{
+    width: 100%;
+    position: relative;
+
+}
+.immagine{
+    height: 200px;
+}
+
+.immagine img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.contenitoreExploreVans{
+    margin: 20px 0;
+    line-height: 20px;
+    padding: 5px 15px;
+    border: unset;
+    border-radius: 10px;
+    height: 240px;
+    background-color: orange;
+}
+.contenitoreExploreVans button{
+    margin-top: 20px;
+    background-color: black;
+    color: white;
+    text-transform: capitalize;
+    border: unset;
+    height: 40px;
+    font-size: 18px;
+    width: 180px;
+    border-radius: 5px;
+}
+.contenitoreAbout .Footer{
+    bottom: auto;
+    width: inherit;
+}

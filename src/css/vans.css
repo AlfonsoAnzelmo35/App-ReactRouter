@@ -1,0 +1,27 @@
+.contenitoreListVans .Footer{
+    bottom:auto;
+}
+
+.vans{
+    padding: 20px;
+    width: fit-content;
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+}
+
+.filtri{
+
+}
+
+.filtri .categoria{
+    margin: 10px;
+    padding: 5px;
+}
+
+.filtri .togliFiltri{
+    float: right;
+}
+
+#caricando{
+    text-align: center;
+}
