@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './css/index.css';
-import { BrowserRouter,Routes,Route } from 'react-router-dom';
+import {Route,RouterProvider, createRoutesFromElements, createBrowserRouter} from 'react-router-dom';
 import { LayoutHeader} from './Components/LayoutHeader';
 import { Home } from './Components/pagesHeader/Home';
 import { About } from './Components/pagesHeader/About';
@@ -21,33 +21,32 @@ import HostVanDetail from './Components/Host/HostVanDetail/HostVanDetail';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
+const router = createBrowserRouter(
+    createRoutesFromElements(<Route element={<LayoutHeader/>}>
+        <Route path='*' element={<h1>Page not found</h1>}/>
+        <Route index element={<Home/>} />
+        <Route path='about' element={<About/>} />
+        <Route path='vans' element={<ListVans/>}/>
+        <Route path="vans/vansDetail/:id" element={<VanDetail/>} />
 
-root.render(
-    <BrowserRouter>
-        <Routes >
-            <Route element={<LayoutHeader/>}>
-                <Route path='*' element={<h1>Page not found</h1>}/>
-                <Route index element={<Home/>} />       
-                <Route path='about' element={<About/>} />
-                <Route path='vans' element={<ListVans/>}/>      
-                <Route path="vans/vansDetail/:id" element={<VanDetail/>} />
-                
-                <Route path='host' element={<LayoutHeaderOptionsVans/>}>
-                    <Route index element={<DashBoard/>}/>
-                    <Route path='income' element={<Income/>}/>
-                    <Route path='vans' element={<HostVans/>}/>
+        <Route path='host' element={<LayoutHeaderOptionsVans/>}>
+            <Route index element={<DashBoard/>}/>
+            <Route path='income' element={<Income/>}/>
+            <Route path='vans' element={<HostVans/>}/>
 
-                    <Route path='vans/vansDetail/:id' element = {<HostVanDetail/>}>
-                        <Route path='pricing' element={<HostVanDetailPricing/>}/>
-                        <Route path='photos' element={<HostVanDetailPhotos/>}/> 
-                        <Route index element={<HostVanDetailDetails/>}/> 
-                    </Route>
-                    <Route path='reviews' element={<Rewies/>}/>
-                </Route>
-
+            <Route path='vans/vansDetail/:id' element = {<HostVanDetail/>}>
+                <Route path='pricing' element={<HostVanDetailPricing/>}/>
+                <Route path='photos' element={<HostVanDetailPhotos/>}/>
+                <Route index element={<HostVanDetailDetails/>}/>
             </Route>
-        </Routes>
-    </BrowserRouter> 
+            <Route path='reviews' element={<Rewies/>}/>
+        </Route>
+
+    </Route>
+    )
+)
+root.render(
+    <RouterProvider router={router}/>
 );
 
 

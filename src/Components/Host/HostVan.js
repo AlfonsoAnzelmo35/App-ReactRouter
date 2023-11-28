@@ -18,15 +18,16 @@ function HostVan(props){
    
     return(
         <div className='hostVan' >
-          <Link to= {"/host/vans/vansDetail/" + props.id}>
             <img src = {props.immagine}/>
             <div className='info'>
                 <div >    
                     <p>{props.descrizione}</p>
                     <p>{props.prezzo}€</p>
                 </div>
+                <div>
+                    <p>{props.categoria}</p>
+                </div>
             </div>
-            </Link>
         </div>
     )
 

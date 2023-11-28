@@ -1,4 +1,4 @@
-import { useParams, Link, Outlet } from "react-router-dom"
+import {useParams, Link, Outlet, useLocation} from "react-router-dom"
 import "../../../css/Header.css";
 import "../../../css/HostVanDetail.css";
 
@@ -7,6 +7,7 @@ import { NavLink } from "react-router-dom";
 export default function HostVanDetail() {
 
     let localStorage = window.localStorage;
+    let location = useLocation()
     const urlParams = useParams();
     var vans = localStorage.getItem("vans");
 
@@ -27,10 +28,12 @@ export default function HostVanDetail() {
         textDecoration: "underline"
     };
 
+    const s = location.state ? `?categoria=${location.state}` : ""
+
     return (
 
         <div className='contenitore-hostVanDetail'>
-            <Link to='../..'
+            <Link to={`../..${s}`}
                 relative="path"
                 className="backTo"
             >  Torna alla lista vans</Link>

@@ -1,34 +1,48 @@
 import { useEffect, useState } from "react"
 import { HostVan } from "./HostVan";
 import "../../css/hostVans.css";
+import {Link, useParams, useSearchParams} from "react-router-dom";
 
 export default function HostVans() {
-    /**
-     * facciamo finta che l'utente sia loggato e che abbia 3 Vans collegati
-     * per simulare questo, prendendo dal localstorage i primi 3 van
-     * il localstorage è stato precedemente inizializzato in ListVans, 
-     * SOLO A SCOPO DI IMPARARE è NECESSARIO PRIMA CLICCARE SU VANS(quindi invocare ListVans.js) PER RIEMPIRE IL LOCALSTORAGE
-     * tutto ciò per evitare di fare nuove richieste.
-     */
+
     const localstorage = window.localStorage;
-    const [treStateVans, setTreStateVans] = useState([]);
+    let [treStateVans, setTreStateVans] = useState([]);
+    const [queryParams, setVanParams] = useSearchParams() ;//query params ?categoria=.. & ....
+    const queryParamCategoria = queryParams.get('categoria')
 
     let vansOBJ = JSON.parse(localstorage.getItem("vans")) ;
-    
-    //useEffect(()=>{
+
+    //prende dal localStorage i primi 3 van
     if(treStateVans.length == 0)
         setTreStateVans((prev)=> prev = vansOBJ.slice(0,3))
-    //},[])
-    let arrVansObj = treStateVans.map((elem, index, array) => { //al primo render e' 0
-        return <HostVan
-            linkDetail={"/host/vans/" + elem.id}
-            datavantuoi={true}
-            key={elem.id}
-            immagine={"http://localhost:8080/VanApp/" + elem.percorsoImmagine}
-            descrizione={elem.descrizione}
-            id={elem.id}
-            prezzo={elem.prezzo}
-        />
+
+    //se queryParamCategoria != null allora applichiamo il filtro altrimenti ritorniamo l'intera lista
+    let displayedTreStateVans = queryParamCategoria
+        ? treStateVans.filter( item => {
+            return item.categoria == queryParamCategoria
+        })
+        : treStateVans
+
+
+
+    let arrVansObj = displayedTreStateVans.map((elem, index, array) => { //al primo render e' 0
+        return(
+            <Link
+                to= {"/host/vans/vansDetail/" + elem.id}
+                state={queryParamCategoria}
+            >
+                <HostVan
+                    linkDetail={"/host/vans/" + elem.id}
+                    datavantuoi={true}
+                    key={elem.id}
+                    immagine={"http://localhost:8080/VanApp/" + elem.percorsoImmagine}
+                    descrizione={elem.descrizione}
+                    id={elem.id}
+                    prezzo={elem.prezzo}
+                    categoria = {elem.categoria}
+                />
+            </Link>
+        )
     });
 
     //mostra i van
@@ -38,10 +52,22 @@ export default function HostVans() {
 
             <div className="hostVansContainer">
                 <h1>Your listed Vans</h1>
-                {
-                    arrVansObj
-                }
-
+                <button className="categoria"
+                        style={queryParamCategoria == 'rugged' ? {background:'red'} : null}
+                        onClick={()=>{setVanParams({categoria:'rugged'})}}> rugged </button>
+                <button className="categoria"
+                        style={queryParamCategoria == 'luxury' ? {background:'red'} : null}
+                        onClick={()=>{setVanParams({categoria:'luxury'})}}> luxury </button>
+                <button className="categoria"
+                        style={queryParamCategoria == 'simple' ? {background:'red'} : null}
+                        onClick={()=>{setVanParams({categoria:'simple'})}}> simple</button>
+                {queryParamCategoria
+                    ?  <button className="categoria"
+                               onClick={()=>{setVanParams({})}}> rimuovi filtri</button>
+                    : <></>}
+                <div>
+                    {arrVansObj}
+                </div>
             </div>
         )
     }else{

@@ -8,6 +8,8 @@ function ListVans() {
     let localStorage = window.localStorage ;
     let [vanStateOBJ,setVanStateOBJ] = useState([]);
     let [vanParams, setVanParams] = useSearchParams() ;//queryParams
+
+
     const queryParamCategoria = vanParams.get('categoria') ;
 
     useEffect(() => {
@@ -38,12 +40,12 @@ function ListVans() {
 
     
     // filtro sul queryParamCategoria
-    vanStateOBJ = queryParamCategoria //se queryParamCategoria ha effettivament un valore
+    let dispayedVanStateOBJ = queryParamCategoria //se queryParamCategoria ha effettivament un valore
         ? vanStateOBJ.filter((item, index, array)=>item.categoria.toLowerCase() == queryParamCategoria )
         : vanStateOBJ ;
 
     //inserisci in arrVanObj una lista di Van
-    let arrVansObj = vanStateOBJ.map((elem, index, array)=>{ //al primo render e' 0
+    let arrVansObj = dispayedVanStateOBJ.map((elem, index, array)=>{ //al primo render e' 0
         return(
             <Link
                 to={`vansDetail/${elem.id}`}
