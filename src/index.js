@@ -17,6 +17,7 @@ import HostVanDetailPricing from './Components/Host/HostVanDetail/HostVanDetailP
 import HostVanDetailDetails from './Components/Host/HostVanDetail/HostVanDetailDetails';
 import HostVanDetailPhotos from './Components/Host/HostVanDetail/HostVanDeatailPhotos';
 import HostVanDetail from './Components/Host/HostVanDetail/HostVanDetail';
+import loader from "./Components/Vans/ListVans";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -26,7 +27,7 @@ const router = createBrowserRouter(
         <Route path='*' element={<h1>Page not found</h1>}/>
         <Route index element={<Home/>} />
         <Route path='about' element={<About/>} />
-        <Route path='vans' element={<ListVans/>}/>
+        <Route path='vans' element={<ListVans/>} loader={loader}/>
         <Route path="vans/vansDetail/:id" element={<VanDetail/>} />
 
         <Route path='host' element={<LayoutHeaderOptionsVans/>}>

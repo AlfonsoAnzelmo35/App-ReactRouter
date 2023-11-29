@@ -1,44 +1,33 @@
 import { useEffect, useState } from "react";
 import { Van } from "./Van";
 import "../../css/vans.css"
-import { Link, useSearchParams } from "react-router-dom";
+import {Link, useLoaderData, useSearchParams} from "react-router-dom";
+
+export default function loader(){
+    let localStorage = window.localStorage ;
+    if(localStorage.getItem("vans") == null) { // allora facciamo la fetch request
+        const responsePromise = fetch("http://localhost:8080/VanApp/listaVans");
+        responsePromise.then((dati) => {
+            const vansPromise = dati.json();
+            vansPromise.then((vans) => {
+
+                //salva anche nel localStorage, supporta solo stringhe però
+                localStorage.setItem("vans", JSON.stringify(vans));
+                return vans ;
+            })
+        })
+    }else{ // allora prendiamo i vans
+        return JSON.parse(localStorage.getItem("vans"))
+    }
+}
 
 
 function ListVans() {
-    let localStorage = window.localStorage ;
-    let [vanStateOBJ,setVanStateOBJ] = useState([]);
     let [vanParams, setVanParams] = useSearchParams() ;//queryParams
-
-
     const queryParamCategoria = vanParams.get('categoria') ;
 
-    useEffect(() => {
-        if(vanStateOBJ.length==0){
-            //fetch request
-            console.log("RICHIESTA!!") ;
-            const responsePromise = fetch("http://localhost:8080/VanApp/listaVans");
+    let vanStateOBJ = useLoaderData();
 
-            responsePromise.then((dati) => {
-            
-                const vansPromise = dati.json();
-                vansPromise.then((vans) => {
-                
-                    //salva anche nel localStorage, supporta solo stringhe però
-                    localStorage.setItem("vans", JSON.stringify(vans)) ;
-                    //salva anche nello stato della componente
-                    setVanStateOBJ(()=>vans);
-                })
-            })
-        }else{
-
-            //prendiamo i valori dallo storage e li inseriamo nello state
-            let vansOBJ = JSON.parse(localStorage.getItem("vans")) ;
-            setVanStateOBJ(()=> vansOBJ);
-        }
-    }, [])//solo al primo render
- 
-
-    
     // filtro sul queryParamCategoria
     let dispayedVanStateOBJ = queryParamCategoria //se queryParamCategoria ha effettivament un valore
         ? vanStateOBJ.filter((item, index, array)=>item.categoria.toLowerCase() == queryParamCategoria )
